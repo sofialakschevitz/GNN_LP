@@ -18,10 +18,10 @@ class BipartiteData(Data):
         self.edge_weight = edge_weight #Pesos das arestas
         
     #Especifica como o tamanho do grafo deve ser aumentado quando novos dados são adicionados
-    #Garante a a tualização adequada do grafo
+    #Garante a atualização adequada do grafo
     def __inc__(self, key, value, *args, **kwargs):
-        #     key: atributo a ser incrementado ao grafo (ex: edge_index, edge_weight, x_s, x_t)
-        #     value : valor do atributo (ex: torch.tensor)
+        #key: atributo a ser incrementado ao grafo (ex: edge_index, edge_weight, x_s, x_t)
+        #value : valor do atributo (ex: torch.tensor)
         if key == 'edge_index':
             return torch.tensor([[self.x_s.size(0)], [self.x_t.size(0)]])
         return super().__inc__(key, value, *args, **kwargs)

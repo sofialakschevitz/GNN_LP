@@ -53,9 +53,12 @@ def solve_lp(c, A, b, constraint_types, bounds):
 
     #Retorna a solução do problema e se encontrou uma solução factível
     return res.x, res.status
-
-
-from torch.utils.data import TensorDataset, DataLoader
+# res.status:
+# 0: Otimização bem-sucedida.
+# 1: Atingido o número máximo de iterações.
+# 2: Problema não possui uma solução factível.
+# 3: Problema não possui solução ótima finita (problema ilimitado).
+# Outros códigos podem indicar diferentes tipos de falhas.
 
 #Função que gera um conjunto de problemas de programação linear
 def loader_lp(num_batches, num_variables, num_constraints, out_func):
@@ -69,6 +72,7 @@ def loader_lp(num_batches, num_variables, num_constraints, out_func):
     batches_solutions = [None] * num_batches
     batches_feasibility = [None] * num_batches
 
+    #Para verificar a viabilidade do problema, os dados gerados contém problemas factíveis e não factíveis
     if out_func == 'feas':
         #Converte as componentes do problema e a solução para tensores do PyTorch e as armazena nas listas correspondentes
         for i in range(num_batches):
@@ -106,6 +110,7 @@ def loader_lp(num_batches, num_variables, num_constraints, out_func):
 
         dataloader = DataLoader(dataset, batch_size=num_batches)
         return dataloader
+    #Para verificar o valor objetivo e a solução do problema, os dados gerados contém apenas problemas factíveis
     else:
         i = 0
         while i < num_batches:
