@@ -6,7 +6,7 @@ from scipy.optimize import linprog
 from torch.utils.data import TensorDataset, DataLoader
 
 #Função que gera um problema de programação linear aleatório
-def generate_random_lp(num_variables, num_constraints, nnz = 5):
+def generate_random_lp(num_variables, num_constraints, nnz = 100):
     #Gera coeficientes aleatórios para a função objetivo
     c = np.random.uniform(-1, 1, num_variables) * 0.01
 
