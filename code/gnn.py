@@ -79,7 +79,8 @@ class LPGCN(nn.Module):
         ints = np.random.randint(1, 10, size=self.num_layers)
         dims = [2 ** i for i in ints]
         
-        #Codifica as características de entrada no espaço de incorporação
+        #Codifica as características de entrada no espaço de incorporação (embedded space)
+        #espaço que contém as características dos nós organizadas e em menor dimensão
         self.fv_in = MLP([2, 32, dims[0]])
         self.fw_in = MLP([3, 32, dims[0]])
 
@@ -152,7 +153,6 @@ class LPGCN(nn.Module):
             sol.append(self.fw_out(joint))
 
         sol = torch.stack(sol, dim=1)
-
         return sol[:, :, 0]
 
     #Função que executa o forward pass do modelo
